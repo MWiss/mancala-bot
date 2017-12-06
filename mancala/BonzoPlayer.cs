@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace mancala
+namespace Mancala
 {
     /*****************************************************************/
     /*

@@ -13,7 +13,7 @@
 **************************************************************************/
 using System;
 
-namespace mancala
+namespace Mancala
 {
     public enum Position : byte { Top, Bottom, Invalid }
 

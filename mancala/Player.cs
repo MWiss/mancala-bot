@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace mancala
+namespace Mancala
 {
     /*****************************************************************
      * A Mankalah player.  This is the base class for players.

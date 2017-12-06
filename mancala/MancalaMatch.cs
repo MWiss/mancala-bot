@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace mancala
+namespace Mancala
 {
     /********************************************************************/
     /* This class creates two Players and runs a pair of Kalah games,

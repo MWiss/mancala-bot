@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace mancala
+namespace Mancala
 {
     /*********************************************************/
     /* A Kalah player that prompts the user for moves. 
