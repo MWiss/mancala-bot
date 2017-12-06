@@ -15,7 +15,7 @@ namespace mancala
             offsets = (position == Position.Top) ? Tuple.Create(7, 0) : Tuple.Create(0, 7);
         }
 
-        public override String getImage() { return "img.png"; }
+        public override String getImage() { return "https://vignette.wikia.nocookie.net/uncyclopedia/images/6/6b/Statue-Thinker.jpg/revision/latest?cb=20140403114710"; }
 
         public override string gloat()
         {
