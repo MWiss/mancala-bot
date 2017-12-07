@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace Mancala
 {
-    class MancalaBot : Player
+    class mcw33Player : Player
     {
         private Position position;
         private Tuple<int, int> offsets; // my offset is Item1, opponent offset is Item2
 
-        public MancalaBot(Position pos, int timeLimit) : base(pos, "Bot", timeLimit)
+        public mcw33Player(Position pos, int timeLimit) : base(pos, "Bot", timeLimit)
         {
             position = pos;
             offsets = (position == Position.Top) ? Tuple.Create(7, 0) : Tuple.Create(0, 7);

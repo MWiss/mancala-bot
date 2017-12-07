@@ -11,7 +11,7 @@ namespace Mancala
     {
         private static int timeLimit = 4000;						                // turn time in msec
 
-        private static Player pTop = new MancalaBot(Position.Top, timeLimit);	// TOP player (MAX)
+        private static Player pTop = new mcw33Player(Position.Top, timeLimit);	// TOP player (MAX)
         private static Player pBot = new BonzoPlayer(Position.Bottom, timeLimit);	// BOTTOM player	
         private static Board b;			                                // playing surface
         private static int move;
