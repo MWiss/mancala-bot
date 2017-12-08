@@ -9,7 +9,7 @@ namespace Mancala
         private Position position;
         private Tuple<int, int> offsets; // my offset is Item1, opponent offset is Item2
 
-        public mcw33Player(Position pos, int timeLimit) : base(pos, "Bot", timeLimit)
+        public mcw33Player(Position pos, int timeLimit) : base(pos, "mcw33", timeLimit)
         {
             position = pos;
             offsets = (position == Position.Top) ? Tuple.Create(7, 0) : Tuple.Create(0, 7);
