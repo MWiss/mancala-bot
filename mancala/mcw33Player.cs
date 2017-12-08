@@ -108,10 +108,10 @@ namespace Mancala
             {
                 int myPit = i + offsets.Item1;
                 int enemyPit = i + offsets.Item2;
-                // Difference between pieces on sides and captures
-                eval += (b.stonesAt(myPit) - b.stonesAt(enemyPit)) * weights["pit"];
-                eval += (checkCapture(b, myPit, offsets.Item1) - checkCapture(b, enemyPit, offsets.Item2)) * weights["capture"];
-                eval += (goAgain(b, myPit, offsets.Item1) - goAgain(b, enemyPit, offsets.Item2)) * weights["turn"];
+                // Add all other conditions to the eval
+                eval += ((b.stonesAt(myPit) - b.stonesAt(enemyPit)) * weights["pit"])
+                     + ((checkCapture(b, myPit, offsets.Item1) - checkCapture(b, enemyPit, offsets.Item2)) * weights["capture"])
+                     + ((goAgain(b, myPit, offsets.Item1) - goAgain(b, enemyPit, offsets.Item2)) * weights["turn"]);
             }
             return eval;
         }
