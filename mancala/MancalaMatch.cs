@@ -9,7 +9,7 @@ namespace Mancala
 
     public class MancalaMatch
     {
-        private static int timeLimit = 4000;						                // turn time in msec
+        private static int timeLimit = 1000;						                // turn time in msec
 
         private static Player pTop = new BonzoPlayer(Position.Top, timeLimit);	// TOP player (MAX)
         private static Player pBot = new mcw33Player(Position.Bottom, timeLimit);	// BOTTOM player	
@@ -85,12 +85,12 @@ namespace Mancala
             if (topScore > 48)
             {
                 Console.WriteLine(pTop.getName() + " wins " + topScore + " to " + botScore);
-                pTop.gloat();
+                Console.WriteLine(pTop.gloat());
             }
             else if (botScore > 48)
             {
                 Console.WriteLine(pBot.getName() + " wins " + botScore + " to " + topScore);
-                pBot.gloat();
+                Console.WriteLine(pBot.gloat());
             }
             else
                 Console.WriteLine("Match was a tie, 48-48!");

@@ -7,14 +7,22 @@ namespace Mancala
 {
     class mcw33Player : Player
     {
-        private Position position;
-        private Tuple<int, int> offsets; // my offset is Item1, opponent offset is Item2
-        private Dictionary<string, int> weights = new Dictionary<string, int>()
+        public Position position;
+        public Tuple<int, int> offsets; // my offset is Item1, opponent offset is Item2
+        public Dictionary<string, int> weights = new Dictionary<string, int>()
         {
-            {"mancala", 30},     // Difference between mancalas
-            {"pit", 1},         // Difference between number of stones on each side of board
-            {"capture", 20},     // Difference between potential captures
-            {"turn", 10}        // Potentially getting another turn
+            {"mancala", 5},     // Difference between mancalas
+            {"pit", 2},         // Difference between number of stones on each side of board
+            {"capture", 4},     // Difference between potential captures
+            {"turn", 15}        // Potentially getting another turn
+        };
+        public List<string> gloats = new List<string>() // Some gloats
+        {
+            "Yes! I won!",
+            "You Lose!",
+            "Good game",
+            "Hey, that was pretty good",
+            "Nice try",
         };
 
         public mcw33Player(Position pos, int timeLimit) : base(pos, "mcw33", timeLimit)
@@ -25,10 +33,7 @@ namespace Mancala
 
         public override String getImage() { return "https://vignette.wikia.nocookie.net/uncyclopedia/images/6/6b/Statue-Thinker.jpg/revision/latest?cb=20140403114710"; }
 
-        public override string gloat()
-        {
-            return "You lose!";
-        }
+        public override string gloat() { return gloats[new Random().Next(gloats.Count)]; }
 
         public override int chooseMove(Board b)
         {
@@ -116,20 +121,20 @@ namespace Mancala
             return eval;
         }
 
-        private int checkCapture(Board b, int pit, int offset)
+        public int checkCapture(Board b, int pit, int offset)
         {
             // Check for potential capture next turn
             int endPit = (pit + b.stonesAt(pit)) % 13;
             return (b.stonesAt(endPit) != 0 && endPit >= 0 + offset && endPit <= 5 + offset) ? b.stonesAt(12 - endPit) : 0;
         }
 
-        private int goAgain(Board b, int pit, int offset)
+        public int goAgain(Board b, int pit, int offset)
         {
             // Check for potential go again for next turn
             return (((pit + b.stonesAt(pit)) % 13) == 6 + offset) ? 1 : 0;
         }
 
-        private bool miniMaxCompare(int score, int best, bool myTurn)
+        public bool miniMaxCompare(int score, int best, bool myTurn)
         {
             return myTurn ? score > best : score < best;
         }
