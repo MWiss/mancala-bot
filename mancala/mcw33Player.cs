@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,6 +9,13 @@ namespace Mancala
     {
         private Position position;
         private Tuple<int, int> offsets; // my offset is Item1, opponent offset is Item2
+        private Dictionary<string, int> weights = new Dictionary<string, int>()
+        {
+            {"mancala", 30},     // Difference between mancalas
+            {"pit", 1},         // Difference between number of stones on each side of board
+            {"capture", 20},     // Difference between potential captures
+            {"turn", 10}        // Potentially getting another turn
+        };
 
         public mcw33Player(Position pos, int timeLimit) : base(pos, "mcw33", timeLimit)
         {
@@ -50,8 +58,6 @@ namespace Mancala
             }
             catch (OperationCanceledException) { }
             finally { cts.Dispose(); }
-
-            Console.WriteLine("Best score: {0}", res.Item2);
             return res.Item1;
         }
 
@@ -97,16 +103,33 @@ namespace Mancala
         {
             int eval = 0;
             // Check scores of mancalas
-            eval += b.stonesAt(offsets.Item1 + 6) - b.stonesAt(offsets.Item2 + 6);
-            // Hog pieces
+            eval += b.stonesAt(6 + offsets.Item1) - b.stonesAt(6 + offsets.Item2) * weights["mancala"];
             for (int i = 0; i <= 5; i++)
             {
-                eval += (b.board[i + offsets.Item1] - b.board[i + offsets.Item2]) * 2;
+                int myPit = i + offsets.Item1;
+                int enemyPit = i + offsets.Item2;
+                // Difference between pieces on sides and captures
+                eval += b.stonesAt(myPit) - b.stonesAt(enemyPit) * weights["pit"];
+                eval += checkCapture(b, myPit, offsets.Item1) - checkCapture(b, enemyPit, offsets.Item2) * weights["capture"];
+                eval += goAgain(b, myPit, offsets.Item1) * weights["turn"];
             }
             return eval;
         }
 
-        public bool miniMaxCompare(int score, int best, bool myTurn)
+        private int checkCapture(Board b, int pit, int offset)
+        {
+            // Check for potential capture next turn
+            int endPit = (pit + b.stonesAt(pit)) % 13;
+            return (b.stonesAt(endPit) != 0 && endPit >= 0 + offset && endPit <= 5 + offset) ? b.stonesAt(12 - endPit) : 0;
+        }
+
+        private int goAgain(Board b, int pit, int offset)
+        {
+            // Check for potential go again for next turn
+            return (((pit + b.stonesAt(pit)) % 13) == 6 + offset) ? 1 : 0;
+        }
+
+        private bool miniMaxCompare(int score, int best, bool myTurn)
         {
             return myTurn ? score > best : score < best;
         }
